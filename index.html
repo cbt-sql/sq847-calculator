@@ -625,7 +625,7 @@ function SQ847Calculator() {
   const [county, setCounty] = useState("Oklahoma");
   const [homeValueStr, setHomeValueStr] = useState(String(COUNTY_DEFAULTS.Oklahoma.value));
   const [taxBillStr, setTaxBillStr] = useState(String(COUNTY_DEFAULTS.Oklahoma.bill));
-  const [years, setYears] = useState(10);
+  const [years, setYears] = useState(1);
   const [isSenior, setIsSenior] = useState(false);
   const [incomeStr, setIncomeStr] = useState("");
   const homeValue = homeValueStr === "" ? 0 : parseInt(homeValueStr, 10);
@@ -1019,7 +1019,7 @@ function SQ847Calculator() {
     htmlFor: "years"
   }, "Project forward ", /*#__PURE__*/React.createElement("span", {
     className: "years-value"
-  }, years, " years")), /*#__PURE__*/React.createElement("input", {
+  }, years, " ", years === 1 ? "year" : "years")), /*#__PURE__*/React.createElement("input", {
     id: "years",
     type: "range",
     min: "1",
@@ -1078,7 +1078,7 @@ function SQ847Calculator() {
     className: "year-table-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "year-table-label"
-  }, "Year-by-year savings — not just the year-", years, " number above"), /*#__PURE__*/React.createElement("div", {
+  }, years > 1 ? `Year-by-year savings — not just the year-${years} number above` : "Drag the slider above to see how this grows (or doesn't) over time"), /*#__PURE__*/React.createElement("div", {
     className: "year-table"
   }, /*#__PURE__*/React.createElement("div", {
     className: "year-table-header"
