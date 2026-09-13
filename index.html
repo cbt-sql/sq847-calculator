@@ -900,6 +900,40 @@ function SQ847Calculator() {
         .compare-rows:last-of-type { border-bottom: 1px solid var(--rule); }
         .compare-rows .k { color: var(--ink-soft); }
         .compare-rows .v { font-weight: 600; }
+        .year-table-wrap { margin: 18px 0 4px; }
+        .year-table-label {
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--ink-soft);
+          margin-bottom: 6px;
+        }
+        .year-table {
+          border: 1px solid var(--rule);
+          max-height: 260px;
+          overflow-y: auto;
+        }
+        .year-table-header, .year-table-row {
+          display: grid;
+          grid-template-columns: 0.6fr 1fr 1fr 1fr;
+          gap: 4px;
+          padding: 6px 10px;
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 11.5px;
+        }
+        .year-table-header {
+          background: #F3ECDD;
+          font-weight: 600;
+          color: var(--ink);
+          position: sticky;
+          top: 0;
+        }
+        .year-table-row {
+          border-top: 1px solid var(--rule);
+          color: var(--ink-soft);
+        }
+        .year-table-row:nth-child(even) { background: #FCFAF4; }
+        .year-table-row .savings.pos { color: var(--green); font-weight: 600; }
+        .year-table-row .savings.zero { color: var(--ink-soft); }
         .chart-box { margin-top: 20px; }
         .legend {
           display: flex;
@@ -1041,6 +1075,23 @@ function SQ847Calculator() {
   }, "Projected bill, year ", years, " — under SQ 847"), /*#__PURE__*/React.createElement("span", {
     className: "v"
   }, fmt(last.taxNew))), /*#__PURE__*/React.createElement("div", {
+    className: "year-table-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "year-table-label"
+  }, "Year-by-year savings — not just the year-", years, " number above"), /*#__PURE__*/React.createElement("div", {
+    className: "year-table"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "year-table-header"
+  }, /*#__PURE__*/React.createElement("span", null, "Year"), /*#__PURE__*/React.createElement("span", null, "Current law"), /*#__PURE__*/React.createElement("span", null, "SQ 847"), /*#__PURE__*/React.createElement("span", null, "Savings")), rows.slice(1).map(r => {
+    const rowDiff = r.taxOld - r.taxNew;
+    const rowZero = rowDiff < 1;
+    return /*#__PURE__*/React.createElement("div", {
+      className: "year-table-row",
+      key: r.year
+    }, /*#__PURE__*/React.createElement("span", null, r.year), /*#__PURE__*/React.createElement("span", null, fmt(r.taxOld)), /*#__PURE__*/React.createElement("span", null, fmt(r.taxNew)), /*#__PURE__*/React.createElement("span", {
+      className: rowZero ? "savings zero" : "savings pos"
+    }, fmt(rowDiff)));
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "chart-box"
   }, /*#__PURE__*/React.createElement("div", {
     className: "legend"
