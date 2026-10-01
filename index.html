@@ -14,53 +14,46 @@
 <body>
 <div id="root"></div>
 <script>
-const {
-  useState,
-  useMemo
-} = React;
+const { useState, useMemo } = React;
 function LineChartSVG({
   data
 }) {
-  const width = 560,
-    height = 190;
-  const padL = 46,
-    padR = 8,
-    padT = 10,
-    padB = 24;
-  const years = data.map(d => d.year);
+  const width = 560, height = 190;
+  const padL = 46, padR = 8, padT = 10, padB = 24;
+  const years = data.map((d) => d.year);
   const minYear = Math.min(...years);
   const maxYear = Math.max(...years);
-  const rawMax = Math.max(...data.map(d => Math.max(d["Current law"], d["SQ 847"])));
+  const rawMax = Math.max(...data.map((d) => Math.max(d["Current law"], d["SQ 847"])));
   const maxY = rawMax > 0 ? rawMax * 1.1 : 1;
-  const xScale = y => padL + (maxYear === minYear ? 0 : (y - minYear) / (maxYear - minYear)) * (width - padL - padR);
-  const yScale = v => height - padB - v / maxY * (height - padT - padB);
-  const linePath = key => data.map((d, i) => `${i === 0 ? "M" : "L"} ${xScale(d.year).toFixed(1)} ${yScale(d[key]).toFixed(1)}`).join(" ");
-  const yTicks = [0, 0.25, 0.5, 0.75, 1].map(f => maxY * f);
-  const xTickPoints = [data[0], data[Math.floor((data.length - 1) / 2)], data[data.length - 1]];
-  return /*#__PURE__*/React.createElement("svg", {
+  const xScale = (y) => padL + (maxYear === minYear ? 0 : (y - minYear) / (maxYear - minYear)) * (width - padL - padR);
+  const yScale = (v) => height - padB - v / maxY * (height - padT - padB);
+  const linePath = (key) => data.map((d, i) => `${i === 0 ? "M" : "L"} ${xScale(d.year).toFixed(1)} ${yScale(d[key]).toFixed(1)}`).join(" ");
+  const yTicks = [0, 0.25, 0.5, 0.75, 1].map((f) => maxY * f);
+  const xTickPoints = [data[0], data[Math.floor((data.length - 1) / 2)], data[data.length - 1]].filter((d, i, arr) => arr.findIndex((x) => x.year === d.year) === i);
+  return /* @__PURE__ */ React.createElement("svg", {
     viewBox: `0 0 ${width} ${height}`,
     style: {
       width: "100%",
       height: "auto",
       display: "block"
     }
-  }, yTicks.map((t, i) => /*#__PURE__*/React.createElement("g", {
+  }, yTicks.map((t, i) => /* @__PURE__ */ React.createElement("g", {
     key: i
-  }, /*#__PURE__*/React.createElement("line", {
+  }, /* @__PURE__ */ React.createElement("line", {
     x1: padL,
     x2: width - padR,
     y1: yScale(t),
     y2: yScale(t),
     stroke: "#E7E0D0",
     strokeWidth: "1"
-  }), /*#__PURE__*/React.createElement("text", {
+  }), /* @__PURE__ */ React.createElement("text", {
     x: padL - 6,
     y: yScale(t) + 3,
     textAnchor: "end",
     fontSize: "10",
     fill: "#4A5A68",
     fontFamily: "Inter, sans-serif"
-  }, `$${Math.round(t / 100) / 10}k`))), xTickPoints.map((d, i) => /*#__PURE__*/React.createElement("text", {
+  }, `$${Math.round(t / 100) / 10}k`))), xTickPoints.map((d, i) => /* @__PURE__ */ React.createElement("text", {
     key: i,
     x: xScale(d.year),
     y: height - 4,
@@ -68,12 +61,12 @@ function LineChartSVG({
     fontSize: "10",
     fill: "#4A5A68",
     fontFamily: "Inter, sans-serif"
-  }, `Yr ${d.year}`)), /*#__PURE__*/React.createElement("path", {
+  }, `Yr ${d.year}`)), /* @__PURE__ */ React.createElement("path", {
     d: linePath("Current law"),
     fill: "none",
     stroke: "#9C3B2E",
     strokeWidth: "2"
-  }), /*#__PURE__*/React.createElement("path", {
+  }), /* @__PURE__ */ React.createElement("path", {
     d: linePath("SQ 847"),
     fill: "none",
     stroke: "#3E6B4A",
@@ -88,12 +81,12 @@ const APPRECIATION = {
   Beckham: 0.05506,
   Blaine: 0.02436,
   Bryan: 0.04037,
-  Caddo: 0.00425,
+  Caddo: 425e-5,
   Canadian: 0.04797,
   Carter: 0.05118,
   Cherokee: 0.05735,
   Choctaw: 0.05596,
-  Cimarron: -0.00311,
+  Cimarron: -311e-5,
   Cleveland: 0.04758,
   Coal: 0.0552,
   Comanche: 0.04964,
@@ -103,7 +96,7 @@ const APPRECIATION = {
   Custer: 0.05966,
   Delaware: 0.05075,
   Dewey: 0.01634,
-  Ellis: 0.00115,
+  Ellis: 115e-5,
   Garfield: 0.03955,
   Garvin: 0.06086,
   Grady: 0.06101,
@@ -119,7 +112,7 @@ const APPRECIATION = {
   Kay: 0.03389,
   Kingfisher: 0.02905,
   Kiowa: 0.0362,
-  Latimer: 0.00874,
+  Latimer: 874e-5,
   "Le Flore": 0.05243,
   Lincoln: 0.05262,
   Logan: 0.03196,
@@ -160,316 +153,97 @@ const APPRECIATION = {
   Woodward: 0.01997
 };
 const COUNTY_DEFAULTS = {
-  Adair: {
-    value: 180057,
-    bill: 357
-  },
-  Alfalfa: {
-    value: 86913,
-    bill: 284
-  },
-  Atoka: {
-    value: 218418,
-    bill: 369
-  },
-  Beaver: {
-    value: 136684,
-    bill: 466
-  },
-  Beckham: {
-    value: 156779,
-    bill: 453
-  },
-  Blaine: {
-    value: 105199,
-    bill: 364
-  },
-  Bryan: {
-    value: 228608,
-    bill: 551
-  },
-  Caddo: {
-    value: 103102,
-    bill: 331
-  },
-  Canadian: {
-    value: 273977,
-    bill: 2521
-  },
-  Carter: {
-    value: 178422,
-    bill: 596
-  },
-  Cherokee: {
-    value: 213946,
-    bill: 505
-  },
-  Choctaw: {
-    value: 142551,
-    bill: 297
-  },
-  Cimarron: {
-    value: 79562,
-    bill: 244
-  },
-  Cleveland: {
-    value: 255911,
-    bill: 2431
-  },
-  Coal: {
-    value: 125988,
-    bill: 312
-  },
-  Comanche: {
-    value: 158381,
-    bill: 1283
-  },
-  Cotton: {
-    value: 102455,
-    bill: 421
-  },
-  Craig: {
-    value: 197535,
-    bill: 474
-  },
-  Creek: {
-    value: 219715,
-    bill: 1472
-  },
-  Custer: {
-    value: 177938,
-    bill: 623
-  },
-  Delaware: {
-    value: 289274,
-    bill: 570
-  },
-  Dewey: {
-    value: 136603,
-    bill: 333
-  },
-  Ellis: {
-    value: 100592,
-    bill: 348
-  },
-  Garfield: {
-    value: 142534,
-    bill: 630
-  },
-  Garvin: {
-    value: 150842,
-    bill: 397
-  },
-  Grady: {
-    value: 248056,
-    bill: 660
-  },
-  Grant: {
-    value: 115103,
-    bill: 314
-  },
-  Greer: {
-    value: 77133,
-    bill: 294
-  },
-  Harmon: {
-    value: 62543,
-    bill: 286
-  },
-  Harper: {
-    value: 77905,
-    bill: 289
-  },
-  Haskell: {
-    value: 157835,
-    bill: 341
-  },
-  Hughes: {
-    value: 114526,
-    bill: 348
-  },
-  Jackson: {
-    value: 116195,
-    bill: 546
-  },
-  Jefferson: {
-    value: 96587,
-    bill: 325
-  },
-  Johnston: {
-    value: 166021,
-    bill: 342
-  },
-  Kay: {
-    value: 117379,
-    bill: 528
-  },
-  Kingfisher: {
-    value: 233170,
-    bill: 520
-  },
-  Kiowa: {
-    value: 74950,
-    bill: 285
-  },
-  Latimer: {
-    value: 149209,
-    bill: 266
-  },
-  "Le Flore": {
-    value: 170498,
-    bill: 423
-  },
-  Lincoln: {
-    value: 189904,
-    bill: 479
-  },
-  Logan: {
-    value: 317574,
-    bill: 915
-  },
-  Love: {
-    value: 201758,
-    bill: 484
-  },
-  Major: {
-    value: 168220,
-    bill: 527
-  },
-  Marshall: {
-    value: 209180,
-    bill: 435
-  },
-  Mayes: {
-    value: 220980,
-    bill: 561
-  },
-  McClain: {
-    value: 286779,
-    bill: 763
-  },
-  McCurtain: {
-    value: 198188,
-    bill: 297
-  },
-  McIntosh: {
-    value: 196601,
-    bill: 389
-  },
-  Murray: {
-    value: 171687,
-    bill: 338
-  },
-  Muskogee: {
-    value: 159230,
-    bill: 1067
-  },
-  Noble: {
-    value: 161290,
-    bill: 487
-  },
-  Nowata: {
-    value: 178245,
-    bill: 471
-  },
-  Okfuskee: {
-    value: 149055,
-    bill: 376
-  },
-  Oklahoma: {
-    value: 224768,
-    bill: 2113
-  },
-  Okmulgee: {
-    value: 130622,
-    bill: 435
-  },
-  Osage: {
-    value: 218571,
-    bill: 579
-  },
-  Ottawa: {
-    value: 142332,
-    bill: 352
-  },
-  Pawnee: {
-    value: 179778,
-    bill: 514
-  },
-  Payne: {
-    value: 245289,
-    bill: 1840
-  },
-  Pittsburg: {
-    value: 150141,
-    bill: 437
-  },
-  Pontotoc: {
-    value: 191113,
-    bill: 487
-  },
-  Pottawatomie: {
-    value: 193752,
-    bill: 1240
-  },
-  Pushmataha: {
-    value: 161300,
-    bill: 273
-  },
-  "Roger Mills": {
-    value: 191513,
-    bill: 525
-  },
-  Rogers: {
-    value: 285221,
-    bill: 2025
-  },
-  Seminole: {
-    value: 125179,
-    bill: 382
-  },
-  Sequoyah: {
-    value: 191608,
-    bill: 368
-  },
-  Stephens: {
-    value: 144226,
-    bill: 485
-  },
-  Texas: {
-    value: 172130,
-    bill: 448
-  },
-  Tillman: {
-    value: 57359,
-    bill: 319
-  },
-  Tulsa: {
-    value: 253998,
-    bill: 2286
-  },
-  Wagoner: {
-    value: 285973,
-    bill: 2116
-  },
-  Washington: {
-    value: 187415,
-    bill: 710
-  },
-  Washita: {
-    value: 105433,
-    bill: 328
-  },
-  Woods: {
-    value: 119646,
-    bill: 422
-  },
-  Woodward: {
-    value: 135004,
-    bill: 539
-  }
+  Adair: { value: 180057, bill: 357 },
+  Alfalfa: { value: 86913, bill: 284 },
+  Atoka: { value: 218418, bill: 369 },
+  Beaver: { value: 136684, bill: 466 },
+  Beckham: { value: 156779, bill: 453 },
+  Blaine: { value: 105199, bill: 364 },
+  Bryan: { value: 228608, bill: 551 },
+  Caddo: { value: 103102, bill: 331 },
+  Canadian: { value: 273977, bill: 2521 },
+  Carter: { value: 178422, bill: 596 },
+  Cherokee: { value: 213946, bill: 505 },
+  Choctaw: { value: 142551, bill: 297 },
+  Cimarron: { value: 79562, bill: 244 },
+  Cleveland: { value: 255911, bill: 2431 },
+  Coal: { value: 125988, bill: 312 },
+  Comanche: { value: 158381, bill: 1283 },
+  Cotton: { value: 102455, bill: 421 },
+  Craig: { value: 197535, bill: 474 },
+  Creek: { value: 219715, bill: 1472 },
+  Custer: { value: 177938, bill: 623 },
+  Delaware: { value: 289274, bill: 570 },
+  Dewey: { value: 136603, bill: 333 },
+  Ellis: { value: 100592, bill: 348 },
+  Garfield: { value: 142534, bill: 630 },
+  Garvin: { value: 150842, bill: 397 },
+  Grady: { value: 248056, bill: 660 },
+  Grant: { value: 115103, bill: 314 },
+  Greer: { value: 77133, bill: 294 },
+  Harmon: { value: 62543, bill: 286 },
+  Harper: { value: 77905, bill: 289 },
+  Haskell: { value: 157835, bill: 341 },
+  Hughes: { value: 114526, bill: 348 },
+  Jackson: { value: 116195, bill: 546 },
+  Jefferson: { value: 96587, bill: 325 },
+  Johnston: { value: 166021, bill: 342 },
+  Kay: { value: 117379, bill: 528 },
+  Kingfisher: { value: 233170, bill: 520 },
+  Kiowa: { value: 74950, bill: 285 },
+  Latimer: { value: 149209, bill: 266 },
+  "Le Flore": { value: 170498, bill: 423 },
+  Lincoln: { value: 189904, bill: 479 },
+  Logan: { value: 317574, bill: 915 },
+  Love: { value: 201758, bill: 484 },
+  Major: { value: 168220, bill: 527 },
+  Marshall: { value: 209180, bill: 435 },
+  Mayes: { value: 220980, bill: 561 },
+  McClain: { value: 286779, bill: 763 },
+  McCurtain: { value: 198188, bill: 297 },
+  McIntosh: { value: 196601, bill: 389 },
+  Murray: { value: 171687, bill: 338 },
+  Muskogee: { value: 159230, bill: 1067 },
+  Noble: { value: 161290, bill: 487 },
+  Nowata: { value: 178245, bill: 471 },
+  Okfuskee: { value: 149055, bill: 376 },
+  Oklahoma: { value: 224768, bill: 2113 },
+  Okmulgee: { value: 130622, bill: 435 },
+  Osage: { value: 218571, bill: 579 },
+  Ottawa: { value: 142332, bill: 352 },
+  Pawnee: { value: 179778, bill: 514 },
+  Payne: { value: 245289, bill: 1840 },
+  Pittsburg: { value: 150141, bill: 437 },
+  Pontotoc: { value: 191113, bill: 487 },
+  Pottawatomie: { value: 193752, bill: 1240 },
+  Pushmataha: { value: 161300, bill: 273 },
+  "Roger Mills": { value: 191513, bill: 525 },
+  Rogers: { value: 285221, bill: 2025 },
+  Seminole: { value: 125179, bill: 382 },
+  Sequoyah: { value: 191608, bill: 368 },
+  Stephens: { value: 144226, bill: 485 },
+  Texas: { value: 172130, bill: 448 },
+  Tillman: { value: 57359, bill: 319 },
+  Tulsa: { value: 253998, bill: 2286 },
+  Wagoner: { value: 285973, bill: 2116 },
+  Washington: { value: 187415, bill: 710 },
+  Washita: { value: 105433, bill: 328 },
+  Woods: { value: 119646, bill: 422 },
+  Woodward: { value: 135004, bill: 539 }
 };
-const SMARTASSET_COUNTIES = new Set(["Canadian", "Cleveland", "Comanche", "Creek", "Muskogee", "Oklahoma", "Payne", "Pottawatomie", "Rogers", "Tulsa", "Wagoner"]);
+const SMARTASSET_COUNTIES = /* @__PURE__ */ new Set([
+  "Canadian",
+  "Cleveland",
+  "Comanche",
+  "Creek",
+  "Muskogee",
+  "Oklahoma",
+  "Payne",
+  "Pottawatomie",
+  "Rogers",
+  "Tulsa",
+  "Wagoner"
+]);
 const COUNTY_AMI = {
   Adair: 61500,
   Alfalfa: 93500,
@@ -489,14 +263,14 @@ const COUNTY_AMI = {
   Comanche: 79600,
   Cotton: 84500,
   Craig: 65600,
-  Creek: 95000,
+  Creek: 95e3,
   Custer: 81400,
   Delaware: 75200,
-  Dewey: 78000,
+  Dewey: 78e3,
   Ellis: 78100,
-  Garfield: 87000,
+  Garfield: 87e3,
   Garvin: 75600,
-  Grady: 96000,
+  Grady: 96e3,
   Grant: 78400,
   Greer: 73400,
   Harmon: 55300,
@@ -519,7 +293,7 @@ const COUNTY_AMI = {
   Mayes: 76200,
   McClain: 97300,
   McCurtain: 70600,
-  McIntosh: 62000,
+  McIntosh: 62e3,
   Murray: 84800,
   Muskogee: 74100,
   Noble: 95300,
@@ -527,7 +301,7 @@ const COUNTY_AMI = {
   Okfuskee: 65900,
   Oklahoma: 97300,
   Okmulgee: 72600,
-  Osage: 95000,
+  Osage: 95e3,
   Ottawa: 64800,
   Pawnee: 76400,
   Payne: 98800,
@@ -535,98 +309,99 @@ const COUNTY_AMI = {
   Pontotoc: 84200,
   Pottawatomie: 82200,
   Pushmataha: 64900,
-  "Roger Mills": 79000,
-  Rogers: 95000,
+  "Roger Mills": 79e3,
+  Rogers: 95e3,
   Seminole: 62100,
   Sequoyah: 76800,
   Stephens: 81500,
   Texas: 84600,
   Tillman: 67200,
-  Tulsa: 95000,
-  Wagoner: 95000,
+  Tulsa: 95e3,
+  Wagoner: 95e3,
   Washington: 84500,
   Washita: 77900,
   Woods: 88500,
-  Woodward: 76000
+  Woodward: 76e3
 };
 const COUNTIES = Object.keys(APPRECIATION).sort();
 const CAP_OLD = 0.03;
 const CAP_NEW = 0.0175;
-const fmt = n => n.toLocaleString("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0
-});
+const AG_GROWTH = Math.pow(2620 / 2070, 1 / 4) - 1;
+const PROPERTY_TYPES = {
+  homestead: {
+    label: "My home (homestead)",
+    short: "home",
+    capOld: 0.03,
+    capNew: 0.0175,
+    hasDefaults: true,
+    growthDefault: "county",
+    valueLabel: "Current home value"
+  },
+  agricultural: {
+    label: "Agricultural land (farm or ranch)",
+    short: "agricultural land",
+    capOld: 0.03,
+    capNew: 0.0175,
+    hasDefaults: false,
+    growthDefault: AG_GROWTH,
+    valueLabel: "Current taxable value of the land",
+    valueHint: "No typical default here — farm and ranch values vary too widely. Enter the taxable (fair cash) value from your county assessment notice and the annual tax bill for the same land from your treasurer's statement. Oklahoma values farmland on its productivity (use value), not market price, so don't enter a sale price.",
+    growthHint: "Default is USDA's Oklahoma farm real estate trend, 2022–2026 (market values). Taxable use value can move differently — enter your own rate if you know it."
+  },
+  commercial: {
+    label: "Commercial or business property",
+    short: "commercial property",
+    capOld: 0.05,
+    capNew: 0.04,
+    hasDefaults: false,
+    growthDefault: "county",
+    valueLabel: "Current taxable value of the property",
+    valueHint: "No typical default here — commercial property varies too widely. Enter the fair cash value from your county assessment notice and your annual tax bill for the same property. Business equipment and inventory (personal property) are not covered by these caps.",
+    growthHint: "Default is your county's home-price trend, which is only a rough stand-in. Commercial values can move very differently — use your own estimate if you have one."
+  },
+  rental: {
+    label: "Rental or other non-homestead property",
+    short: "non-homestead property",
+    capOld: 0.05,
+    capNew: 0.04,
+    hasDefaults: true,
+    growthDefault: "county",
+    valueLabel: "Current property value",
+    growthHint: "Default is your county's home-price trend."
+  }
+};
+const capPct = (n) => `${parseFloat((n * 100).toFixed(2))}%`;
+const fmt = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 function project(homeValue, taxBill, appreciation, years, capOld, capNew) {
   const effRate = homeValue > 0 ? taxBill / homeValue : 0;
   let mv = homeValue;
   let avOld = homeValue;
   let avNew = homeValue;
-  const rows = [{
-    year: 0,
-    taxOld: avOld * effRate,
-    taxNew: avNew * effRate
-  }];
+  const rows = [{ year: 0, taxOld: avOld * effRate, taxNew: avNew * effRate }];
   for (let y = 1; y <= years; y++) {
     mv = mv * (1 + appreciation);
     avOld = Math.min(mv, avOld * (1 + capOld));
     avNew = Math.min(mv, avNew * (1 + capNew));
-    rows.push({
-      year: y,
-      taxOld: avOld * effRate,
-      taxNew: avNew * effRate
-    });
+    rows.push({ year: y, taxOld: avOld * effRate, taxNew: avNew * effRate });
   }
   return rows;
 }
-
-// Senior freeze tiers, per SQ 847's ballot text. Below 100% of county median income,
-// today's full freeze (0% growth) is unchanged. Above 100%, today's law gives NO freeze
-// at all (general 3% cap) -- SQ 847 introduces a sliding-scale freeze instead.
 function seniorTier(incomePct) {
-  if (incomePct <= 1.0) return {
-    label: "at or below 100% of county median income",
-    capOld: 0,
-    capNew: 0,
-    hasFreezeToday: true
-  };
-  if (incomePct <= 1.2) return {
-    label: "100%-120% of county median income",
-    capOld: CAP_OLD,
-    capNew: 0.0035,
-    hasFreezeToday: false
-  };
-  if (incomePct <= 1.4) return {
-    label: "120%-140% of county median income",
-    capOld: CAP_OLD,
-    capNew: 0.0070,
-    hasFreezeToday: false
-  };
-  if (incomePct <= 1.6) return {
-    label: "140%-160% of county median income",
-    capOld: CAP_OLD,
-    capNew: 0.0105,
-    hasFreezeToday: false
-  };
-  if (incomePct <= 1.8) return {
-    label: "160%-180% of county median income",
-    capOld: CAP_OLD,
-    capNew: 0.0140,
-    hasFreezeToday: false
-  };
-  return {
-    label: "over 180% of county median income",
-    capOld: CAP_OLD,
-    capNew: CAP_NEW,
-    hasFreezeToday: false
-  };
+  if (incomePct <= 1) return { label: "at or below 100% of county median income", capOld: 0, capNew: 0, hasFreezeToday: true };
+  if (incomePct <= 1.2) return { label: "100%-120% of county median income", capOld: CAP_OLD, capNew: 35e-4, hasFreezeToday: false };
+  if (incomePct <= 1.4) return { label: "120%-140% of county median income", capOld: CAP_OLD, capNew: 7e-3, hasFreezeToday: false };
+  if (incomePct <= 1.6) return { label: "140%-160% of county median income", capOld: CAP_OLD, capNew: 0.0105, hasFreezeToday: false };
+  if (incomePct <= 1.8) return { label: "160%-180% of county median income", capOld: CAP_OLD, capNew: 0.014, hasFreezeToday: false };
+  return { label: "over 180% of county median income", capOld: CAP_OLD, capNew: CAP_NEW, hasFreezeToday: false };
 }
 function SQ847Calculator() {
   const [county, setCounty] = useState("Oklahoma");
   const [homeValueStr, setHomeValueStr] = useState(String(COUNTY_DEFAULTS.Oklahoma.value));
   const [taxBillStr, setTaxBillStr] = useState(String(COUNTY_DEFAULTS.Oklahoma.bill));
   const [years, setYears] = useState(1);
-  const [isSenior, setIsSenior] = useState(false);
+  const [propType, setPropType] = useState("homestead");
+  const [growthStr, setGrowthStr] = useState(null);
+  const [seniorChecked, setSeniorChecked] = useState(false);
   const [incomeStr, setIncomeStr] = useState("");
   const homeValue = homeValueStr === "" ? 0 : parseInt(homeValueStr, 10);
   const taxBill = taxBillStr === "" ? 0 : parseInt(taxBillStr, 10);
@@ -636,36 +411,56 @@ function SQ847Calculator() {
     const noLeadingZeros = digitsOnly.replace(/^0+(?=\d)/, "");
     setter(noLeadingZeros);
   };
-  const handleCountyChange = newCounty => {
-    setCounty(newCounty);
-    const d = COUNTY_DEFAULTS[newCounty];
-    if (d) {
+  const applyDefaults = (nextCounty, nextType) => {
+    const d = COUNTY_DEFAULTS[nextCounty];
+    if (PROPERTY_TYPES[nextType].hasDefaults && d) {
       setHomeValueStr(String(d.value));
       setTaxBillStr(String(d.bill));
+    } else {
+      setHomeValueStr("");
+      setTaxBillStr("");
     }
+    setGrowthStr(null);
   };
+  const handleCountyChange = (newCounty) => {
+    setCounty(newCounty);
+    applyDefaults(newCounty, propType);
+  };
+  const handleTypeChange = (newType) => {
+    setPropType(newType);
+    applyDefaults(county, newType);
+  };
+  const isSenior = seniorChecked && propType === "homestead";
+  const type = PROPERTY_TYPES[propType];
   const ami = COUNTY_AMI[county];
   const incomePct = isSenior && ami > 0 ? income / ami : 0;
   const tier = isSenior ? seniorTier(incomePct) : null;
+  const defaultGrowth = type.growthDefault === "county" ? APPRECIATION[county] : type.growthDefault;
+  const parsedGrowth = parseFloat(growthStr);
+  const hasOverride = propType !== "homestead" && growthStr !== null && growthStr !== "" && !isNaN(parsedGrowth);
+  const growth = hasOverride ? parsedGrowth / 100 : defaultGrowth;
+  const growthPct = (growth * 100).toFixed(1);
+  const capOld = type.capOld;
+  const capNew = type.capNew;
+  const hasInputs = homeValue > 0 && taxBill > 0;
   const rows = useMemo(() => {
     if (isSenior && tier) {
-      return project(homeValue, taxBill, APPRECIATION[county], years, tier.capOld, tier.capNew);
+      return project(homeValue, taxBill, growth, years, tier.capOld, tier.capNew);
     }
-    return project(homeValue, taxBill, APPRECIATION[county], years, CAP_OLD, CAP_NEW);
-  }, [county, homeValue, taxBill, years, isSenior, tier?.capOld, tier?.capNew]);
+    return project(homeValue, taxBill, growth, years, capOld, capNew);
+  }, [homeValue, taxBill, growth, years, isSenior, tier?.capOld, tier?.capNew, capOld, capNew]);
   const last = rows[rows.length - 1];
   const diff = last.taxOld - last.taxNew;
-  const appreciationPct = (APPRECIATION[county] * 100).toFixed(1);
   const isZero = diff < 1;
-  const isPlateaued = !isSenior && APPRECIATION[county] > CAP_OLD;
-  const chartData = rows.map(r => ({
+  const isPlateaued = !isSenior && growth > capOld;
+  const countiesFaster = COUNTIES.filter((c) => APPRECIATION[c] > capOld).length;
+  const growthBasis = hasOverride ? `the ${growthPct}% annual growth you entered` : propType === "agricultural" ? `Oklahoma's recent farmland trend (about ${growthPct}% a year)` : `${county} County's recent home-price trend (about ${growthPct}% a year)`;
+  const chartData = rows.map((r) => ({
     year: r.year,
     "Current law": Math.round(r.taxOld),
     "SQ 847": Math.round(r.taxNew)
   }));
-  return /*#__PURE__*/React.createElement("div", {
-    className: "wrap"
-  }, /*#__PURE__*/React.createElement("style", null, `
+  return /* @__PURE__ */ React.createElement("div", { className: "wrap" }, /* @__PURE__ */ React.createElement("style", null, `
         @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap');
 
         .wrap {
@@ -960,157 +755,67 @@ function SQ847Calculator() {
           .field-row { grid-template-columns: 1fr; }
           .result-number { font-size: 34px; }
         }
-      `), /*#__PURE__*/React.createElement("div", {
-    className: "eyebrow-rule"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), /*#__PURE__*/React.createElement("span", null, "SQ 847 · READER CALCULATOR")), /*#__PURE__*/React.createElement("h1", null, "What would this actually save you?"), /*#__PURE__*/React.createElement("p", {
-    className: "sub"
-  }, "Enter your county, your home's current market value, and your current annual property tax bill. This projects your bill forward under today's law versus SQ 847, using each county's recent home-price trend."), /*#__PURE__*/React.createElement("details", {
-    className: "howto"
-  }, /*#__PURE__*/React.createElement("summary", null, "How your tax bill is actually calculated, and where to find these numbers"), /*#__PURE__*/React.createElement("div", {
-    className: "howto-body"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "formula"
-  }, "Taxable value \xA0×\xA0 effective tax rate \xA0=\xA0 your bill"), /*#__PURE__*/React.createElement("p", null, "Oklahoma taxes your home's ", /*#__PURE__*/React.createElement("em", null, "taxable value"), ", not its full market price — and that's exactly the number SQ 847's cap controls. Taxable value is smaller than market value: your county assessor estimates your home's ", /*#__PURE__*/React.createElement("em", null, "fair cash value"), "(essentially its market price), multiplies that by an assessment ratio (roughly 11%–13.5%, set by your county) to get taxable value, then applies your local mill levy (school, county, city, and other levies combined) to that smaller number to produce your bill."), /*#__PURE__*/React.createElement("p", null, "This tool asks for your home's ", /*#__PURE__*/React.createElement("strong", null, "market (fair cash) value"), " — the bigger number — not taxable value. Combined with your actual bill, it computes one blended \"effective tax rate\" (bill ÷ market value), the same measure SmartAsset and similar sites publish. ", /*#__PURE__*/React.createElement("strong", null, "Entering your taxable value instead of market value would understate this rate"), " and skew every projection below — the two numbers can differ by a factor of 7–9x in Oklahoma, so it matters which one you use."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "Home value — use market (fair cash) value:"), " your county assessor's website (search \"[your county] county assessor Oklahoma\") lists a \"fair cash value\" or market value estimate — that's the one to enter. Ignore any separate, much smaller \"assessed value\" or \"taxable value\" line on the same page; that's the number this tool is solving for, not asking you to supply. No recent assessor listing? A Zillow or Redfin estimate is a reasonable stand-in."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "Annual tax bill:"), " your county treasurer mails a tax statement each fall, also available on the treasurer's website. If your mortgage escrows for taxes, your yearly escrow analysis statement shows the amount paid on your behalf."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "One quirk worth knowing:"), " once a county's home prices are growing faster than the old 3% cap, the dollar savings from SQ 847 stop depending on how fast prices are actually rising — a county growing 4% a year and one growing 9% a year can show the identical savings for the same home value and tax bill. The cap is already the limiting factor either way. Savings only shrink below that plateau in slower-growing counties, and disappear entirely where prices are flat or falling."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "Senior freeze, briefly:"), " if you're 65+ and already at or below your county's median income, you get a full freeze today and SQ 847 doesn't touch that. The real change is for seniors whose income is too high to qualify for any freeze right now — SQ 847 gives that group a partial freeze on a sliding scale instead of nothing. Nobody loses their current freeze; some previously-excluded seniors gain one. Your county's median family income comes from HUD's official FY2026 figures."))), /*#__PURE__*/React.createElement("div", {
-    className: "field-row"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "field full"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "county"
-  }, "County"), /*#__PURE__*/React.createElement("select", {
-    id: "county",
-    value: county,
-    onChange: e => handleCountyChange(e.target.value)
-  }, COUNTIES.map(c => /*#__PURE__*/React.createElement("option", {
-    key: c,
-    value: c
-  }, c, " County"))), /*#__PURE__*/React.createElement("div", {
-    className: "hint"
-  }, "Fills in ", county, " County's typical home value and tax bill below — type over either one with your own numbers."))), /*#__PURE__*/React.createElement("div", {
-    className: "field-row"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "field"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "value"
-  }, "Current market (fair cash) value"), /*#__PURE__*/React.createElement("input", {
-    id: "value",
-    type: "text",
-    inputMode: "numeric",
-    value: homeValueStr,
-    onChange: e => handleNumberInput(e.target.value, setHomeValueStr)
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "field"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "bill"
-  }, "Current annual tax bill"), /*#__PURE__*/React.createElement("input", {
-    id: "bill",
-    type: "text",
-    inputMode: "numeric",
-    value: taxBillStr,
-    onChange: e => handleNumberInput(e.target.value, setTaxBillStr)
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "source-note"
-  }, "Defaults shown: home value from Zillow's typical mid-tier home value for ", county, " County (July 2026).", " ", SMARTASSET_COUNTIES.has(county) ? "Tax bill is calculated: SmartAsset's published effective tax rate for this county × that Zillow value — not a directly published bill amount." : "Tax bill is tax-rates.org's published median annual property tax bill for this county."), /*#__PURE__*/React.createElement("div", {
-    className: "field-row"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "field full"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "years"
-  }, "Project forward ", /*#__PURE__*/React.createElement("span", {
-    className: "years-value"
-  }, years, " ", years === 1 ? "year" : "years")), /*#__PURE__*/React.createElement("input", {
-    id: "years",
-    type: "range",
-    min: "1",
-    max: "15",
-    value: years,
-    onChange: e => setYears(Number(e.target.value))
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "senior-toggle"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "checkbox-label"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: isSenior,
-    onChange: e => setIsSenior(e.target.checked)
-  }), "I'm 65+ and eligible for Oklahoma's senior property tax freeze"), isSenior && /*#__PURE__*/React.createElement("div", {
-    className: "field full income-field",
-    style: {
-      marginTop: 10
+      `), /* @__PURE__ */ React.createElement("div", { className: "eyebrow-rule" }, /* @__PURE__ */ React.createElement("span", { className: "dot" }), /* @__PURE__ */ React.createElement("span", null, "SQ 847 · READER CALCULATOR")), /* @__PURE__ */ React.createElement("h1", null, "What would this actually save you?"), /* @__PURE__ */ React.createElement("p", { className: "sub" }, "Choose your property type, enter your county, the property's current value, and its current annual property tax bill. This projects your bill forward under today's law versus SQ 847, which lowers the cap on yearly growth in taxable value for every class of real property — homes, farmland, and commercial, rental, and other property."), /* @__PURE__ */ React.createElement("details", { className: "howto" }, /* @__PURE__ */ React.createElement("summary", null, "How your tax bill is actually calculated, and where to find these numbers"), /* @__PURE__ */ React.createElement("div", { className: "howto-body" }, /* @__PURE__ */ React.createElement("div", { className: "formula" }, "Taxable value  ×  effective tax rate  =  your bill"), /* @__PURE__ */ React.createElement("p", null, "Oklahoma taxes your home's ", /* @__PURE__ */ React.createElement("em", null, "taxable value"), ` (also called "assessed" or "fair cash" value), not its full market price — that's exactly the number SQ 847's cap controls. Getting to taxable value normally takes two steps: your market value gets multiplied by an assessment ratio (roughly 11%–13.5%, set by your county), then that smaller number gets multiplied by your local mill levy (school, county, city, and other levies combined) to produce your bill.`), /* @__PURE__ */ React.createElement("p", null, "This tool skips both of those steps. Since you already know your current bill and current value, it just divides one by the other to get a single blended rate — which already has the assessment ratio built in. ", /* @__PURE__ */ React.createElement("strong", null, "That number is not the same as your county's published mill levy"), ` — if you look up your actual millage rate (something like "98 mills"), don't type that percentage in here directly; it only applies to the much smaller assessed value, not full market value, and would wildly overstate your results.`), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "Home value:"), ` your county assessor's website usually lists your home's current "fair cash value" — search "[your county] county assessor Oklahoma." No recent listing there? A Zillow or Redfin estimate is a reasonable stand-in.`), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "Annual tax bill:"), " your county treasurer mails a tax statement each fall, also available on the treasurer's website. If your mortgage escrows for taxes, your yearly escrow analysis statement shows the amount paid on your behalf."), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "One quirk worth knowing:"), " once a county's home prices are growing faster than the old 3% cap, the dollar savings from SQ 847 stop depending on how fast prices are actually rising — a county growing 4% a year and one growing 9% a year can show the identical savings for the same home value and tax bill. The cap is already the limiting factor either way. Savings only shrink below that plateau in slower-growing counties, and disappear entirely where prices are flat or falling."), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "Which cap applies to what:"), ' SQ 847 lowers the cap on yearly growth in taxable value from 3% to 1.75% for homesteads and agricultural land, and from 5% to 4% for all other real property (commercial, rental, vacant land). Personal property (equipment, inventory, vehicles) and utility property valued by the State Board of Equalization are not covered. Farmland is taxed on its productive "use value," so enter the taxable value from your assessment notice, not a sale price.'), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "Senior freeze, briefly:"), " if you're 65+ and already at or below your county's median income, you get a full freeze today and SQ 847 doesn't touch that. The real change is for seniors whose income is too high to qualify for any freeze right now — SQ 847 gives that group a partial freeze on a sliding scale instead of nothing. Nobody loses their current freeze; some previously-excluded seniors gain one. Your county's median family income comes from HUD's official FY2026 figures."))), /* @__PURE__ */ React.createElement("div", { className: "field-row" }, /* @__PURE__ */ React.createElement("div", { className: "field full" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "proptype" }, "Type of property"), /* @__PURE__ */ React.createElement("select", { id: "proptype", value: propType, onChange: (e) => handleTypeChange(e.target.value) }, Object.entries(PROPERTY_TYPES).map(([k, t]) => /* @__PURE__ */ React.createElement("option", { key: k, value: k }, t.label))), /* @__PURE__ */ React.createElement("div", { className: "hint" }, "Growth in taxable value is capped at ", capPct(capOld), " a year today. SQ 847 would lower that to ", capPct(capNew), "."))), /* @__PURE__ */ React.createElement("div", { className: "field-row" }, /* @__PURE__ */ React.createElement("div", { className: "field full" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "county" }, "County"), /* @__PURE__ */ React.createElement("select", { id: "county", value: county, onChange: (e) => handleCountyChange(e.target.value) }, COUNTIES.map((c) => /* @__PURE__ */ React.createElement("option", { key: c, value: c }, c, " County"))), /* @__PURE__ */ React.createElement("div", { className: "hint" }, type.hasDefaults ? `Fills in ${county} County's typical home value and tax bill below — type over either one with your own numbers.` : propType === "agricultural" ? "Farmland uses a statewide trend by default; enter your own growth rate below if you have one." : "Sets the county home-price trend used as the default growth rate below."))), /* @__PURE__ */ React.createElement("div", { className: "field-row" }, /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "value" }, type.valueLabel), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      id: "value",
+      type: "text",
+      inputMode: "numeric",
+      value: homeValueStr,
+      onChange: (e) => handleNumberInput(e.target.value, setHomeValueStr)
     }
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "income"
-  }, "Annual household income"), /*#__PURE__*/React.createElement("input", {
-    id: "income",
-    type: "text",
-    inputMode: "numeric",
-    value: incomeStr,
-    onChange: e => handleNumberInput(e.target.value, setIncomeStr),
-    placeholder: "e.g. 62000"
-  }), ami > 0 && income > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "hint"
-  }, county, " County's median family income is ", fmt(ami), ". Your income is about", " ", (incomePct * 100).toFixed(0), "% of that — putting you in the", " ", tier.label, " tier."))), /*#__PURE__*/React.createElement("hr", {
-    className: "tear"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "result-label"
-  }, isSenior ? `Estimated annual change in year ${years}, ${county} County (senior freeze)` : `Estimated annual savings in year ${years}, ${county} County`), /*#__PURE__*/React.createElement("div", {
-    className: `result-number ${isZero ? "zero" : "pos"}`
-  }, isZero ? "About $0" : fmt(diff)), /*#__PURE__*/React.createElement("div", {
-    className: "result-monthly"
-  }, isZero ? "That's $0 a month, too." : `Spread out, that's about ${fmt(diff / 12)} a month.`), /*#__PURE__*/React.createElement("div", {
-    className: "result-caption"
-  }, isSenior && tier ? tier.hasFreezeToday ? `Your income puts you at or below ${county} County's median — you already qualify for a full freeze today, and SQ 847 doesn't change that. Zero change, by design.` : `Your income puts you in the ${tier.label} tier. Today, you get no freeze at all — you're on the same general cap as any other homeowner. Under SQ 847, you'd move to a partial freeze instead, saving roughly ${fmt(diff)} a year by year ${years}.` : isZero ? `Based on ${county} County's recent home-price trend (about ${appreciationPct}% a year), your market value isn't rising fast enough for either cap to matter much — SQ 847 wouldn't meaningfully change your bill.` : `${county} County home values have grown about ${appreciationPct}% a year recently. At that pace, SQ 847's lower cap saves you roughly ${fmt(diff)} a year by year ${years}, compared to today's law.`), isPlateaued && /*#__PURE__*/React.createElement("div", {
-    className: "plateau-note"
-  }, "Note: ", county, " County's growth (about ", appreciationPct, "% a year) is already faster than the old 3% cap, so this exact dollar figure would show up for ", /*#__PURE__*/React.createElement("em", null, "any"), " county growing faster than 3% a year, given the same value and bill — that's 59 of Oklahoma's 77 counties. The cap itself is what limits growth in both scenarios here, not how hot the market actually is. Try Woods, Jackson, or Kingfisher County to see a case where the growth rate genuinely changes the number."), /*#__PURE__*/React.createElement("div", {
-    className: "compare-rows"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "k"
-  }, "Projected bill, year ", years, " — current law"), /*#__PURE__*/React.createElement("span", {
-    className: "v"
-  }, fmt(last.taxOld))), /*#__PURE__*/React.createElement("div", {
-    className: "compare-rows"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "k"
-  }, "Projected bill, year ", years, " — under SQ 847"), /*#__PURE__*/React.createElement("span", {
-    className: "v"
-  }, fmt(last.taxNew))), /*#__PURE__*/React.createElement("div", {
-    className: "year-table-wrap"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "year-table-label"
-  }, years > 1 ? `Year-by-year savings — not just the year-${years} number above` : "Drag the slider above to see how this grows (or doesn't) over time"), /*#__PURE__*/React.createElement("div", {
-    className: "year-table"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "year-table-header"
-  }, /*#__PURE__*/React.createElement("span", null, "Year"), /*#__PURE__*/React.createElement("span", null, "Current law"), /*#__PURE__*/React.createElement("span", null, "SQ 847"), /*#__PURE__*/React.createElement("span", null, "Savings")), rows.slice(1).map(r => {
+  )), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "bill" }, "Current annual tax bill"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      id: "bill",
+      type: "text",
+      inputMode: "numeric",
+      value: taxBillStr,
+      onChange: (e) => handleNumberInput(e.target.value, setTaxBillStr)
+    }
+  ))), /* @__PURE__ */ React.createElement("div", { className: "source-note" }, propType === "homestead" ? /* @__PURE__ */ React.createElement(React.Fragment, null, "Defaults shown: home value from Zillow's typical mid-tier home value for ", county, " County (July 2026).", " ", SMARTASSET_COUNTIES.has(county) ? "Tax bill is calculated: SmartAsset's published effective tax rate for this county × that Zillow value — not a directly published bill amount." : "Tax bill is tax-rates.org's published median annual property tax bill for this county.") : propType === "rental" ? /* @__PURE__ */ React.createElement(React.Fragment, null, "Defaults shown are the typical home value and tax bill for ", county, " County. Rental and other non-homestead property doesn't get the homestead exemption, so your actual bill may run a bit higher — type over both with your own numbers.") : type.valueHint), propType !== "homestead" && /* @__PURE__ */ React.createElement("div", { className: "field-row" }, /* @__PURE__ */ React.createElement("div", { className: "field full" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "growth" }, "Expected yearly growth in value (%)"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      id: "growth",
+      type: "text",
+      inputMode: "decimal",
+      value: growthStr === null ? (defaultGrowth * 100).toFixed(1) : growthStr,
+      onChange: (e) => setGrowthStr(e.target.value.replace(/[^\d.-]/g, ""))
+    }
+  ), /* @__PURE__ */ React.createElement("div", { className: "hint" }, type.growthHint))), /* @__PURE__ */ React.createElement("div", { className: "field-row" }, /* @__PURE__ */ React.createElement("div", { className: "field full" }, /* @__PURE__ */ React.createElement("label", { htmlFor: "years" }, "Slide to project your bill into future years: ", /* @__PURE__ */ React.createElement("span", { className: "years-value" }, "showing year ", years)), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      id: "years",
+      type: "range",
+      min: "1",
+      max: "15",
+      value: years,
+      onChange: (e) => setYears(Number(e.target.value))
+    }
+  ), /* @__PURE__ */ React.createElement("div", { className: "hint" }, "Drag right to see how SQ 847's effect on your annual tax bill changes in later years, up to 15 years out."))), propType === "homestead" && /* @__PURE__ */ React.createElement("div", { className: "senior-toggle" }, /* @__PURE__ */ React.createElement("label", { className: "checkbox-label" }, /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "checkbox",
+      checked: seniorChecked,
+      onChange: (e) => setSeniorChecked(e.target.checked)
+    }
+  ), "I'm 65+ and eligible for Oklahoma's senior property tax freeze"), isSenior && /* @__PURE__ */ React.createElement("div", { className: "field full income-field", style: { marginTop: 10 } }, /* @__PURE__ */ React.createElement("label", { htmlFor: "income" }, "Annual household income"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      id: "income",
+      type: "text",
+      inputMode: "numeric",
+      value: incomeStr,
+      onChange: (e) => handleNumberInput(e.target.value, setIncomeStr),
+      placeholder: "e.g. 62000"
+    }
+  ), ami > 0 && income > 0 && /* @__PURE__ */ React.createElement("div", { className: "hint" }, county, " County's median family income is ", fmt(ami), ". Your income is about", " ", (incomePct * 100).toFixed(0), "% of that — putting you in the", " ", tier.label, " tier."))), /* @__PURE__ */ React.createElement("hr", { className: "tear" }), !hasInputs && /* @__PURE__ */ React.createElement("div", { className: "plateau-note" }, "Enter the taxable value and annual tax bill for your property above to see your estimate."), hasInputs && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "result-label" }, isSenior ? `Estimated annual change in year ${years}, ${county} County (senior freeze)` : propType === "homestead" ? `Estimated annual savings in year ${years}, ${county} County` : `Estimated annual savings in year ${years}, ${type.short}, ${county} County`), /* @__PURE__ */ React.createElement("div", { className: `result-number ${isZero ? "zero" : "pos"}` }, isZero ? "About $0" : fmt(diff)), /* @__PURE__ */ React.createElement("div", { className: "result-monthly" }, isZero ? "That's $0 a month, too." : `Spread out, that's about ${fmt(diff / 12)} a month.`), /* @__PURE__ */ React.createElement("div", { className: "result-caption" }, isSenior && tier ? tier.hasFreezeToday ? `Your income puts you at or below ${county} County's median — you already qualify for a full freeze today, and SQ 847 doesn't change that. Zero change, by design.` : `Your income puts you in the ${tier.label} tier. Today, you get no freeze at all — you're on the same general cap as any other homeowner. Under SQ 847, you'd move to a partial freeze instead, saving roughly ${fmt(diff)} a year by year ${years}.` : isZero ? `Based on ${growthBasis}, your value isn't rising fast enough for either cap to matter much — SQ 847 wouldn't meaningfully change your bill.` : `Based on ${growthBasis}, SQ 847's lower cap (${capPct(capNew)} instead of ${capPct(capOld)}) saves you roughly ${fmt(diff)} a year by year ${years}, compared to today's law.`), isPlateaued && /* @__PURE__ */ React.createElement("div", { className: "plateau-note" }, "Note: growth of about ", growthPct, "% a year is already faster than the old", " ", capPct(capOld), " cap, so this exact dollar figure would show up at ", /* @__PURE__ */ React.createElement("em", null, "any"), " growth rate above ", capPct(capOld), ", given the same value and bill. The cap itself is what limits growth in both scenarios here, not how hot the market actually is.", " ", propType === "homestead" ? `That's the case in ${countiesFaster} of Oklahoma's 77 counties. Try Woods, Jackson, or Kingfisher County to see a case where the growth rate genuinely changes the number.` : "Try lowering the growth rate above to see where the cap stops mattering."), /* @__PURE__ */ React.createElement("div", { className: "compare-rows" }, /* @__PURE__ */ React.createElement("span", { className: "k" }, "Projected bill, year ", years, " — current law"), /* @__PURE__ */ React.createElement("span", { className: "v" }, fmt(last.taxOld))), /* @__PURE__ */ React.createElement("div", { className: "compare-rows" }, /* @__PURE__ */ React.createElement("span", { className: "k" }, "Projected bill, year ", years, " — under SQ 847"), /* @__PURE__ */ React.createElement("span", { className: "v" }, fmt(last.taxNew))), /* @__PURE__ */ React.createElement("div", { className: "year-table-wrap" }, /* @__PURE__ */ React.createElement("div", { className: "year-table-label" }, "Year-by-year savings — not just the year-", years, " number above"), /* @__PURE__ */ React.createElement("div", { className: "year-table" }, /* @__PURE__ */ React.createElement("div", { className: "year-table-header" }, /* @__PURE__ */ React.createElement("span", null, "Year"), /* @__PURE__ */ React.createElement("span", null, "Current law"), /* @__PURE__ */ React.createElement("span", null, "SQ 847"), /* @__PURE__ */ React.createElement("span", null, "Savings")), rows.slice(1).map((r) => {
     const rowDiff = r.taxOld - r.taxNew;
     const rowZero = rowDiff < 1;
-    return /*#__PURE__*/React.createElement("div", {
-      className: "year-table-row",
-      key: r.year
-    }, /*#__PURE__*/React.createElement("span", null, r.year), /*#__PURE__*/React.createElement("span", null, fmt(r.taxOld)), /*#__PURE__*/React.createElement("span", null, fmt(r.taxNew)), /*#__PURE__*/React.createElement("span", {
-      className: rowZero ? "savings zero" : "savings pos"
-    }, fmt(rowDiff)));
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "chart-box"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "legend"
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
-    className: "legend-swatch",
-    style: {
-      background: "#9C3B2E"
-    }
-  }), "Current law"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
-    className: "legend-swatch",
-    style: {
-      background: "#3E6B4A"
-    }
-  }), "SQ 847")), /*#__PURE__*/React.createElement(LineChartSVG, {
-    data: chartData
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "caveat"
-  }, "This is an estimate, not a tax bill. It assumes your effective tax rate (today's bill divided by today's value) stays constant, and projects your county's recent home-price trend forward at a steady pace — real markets don't move in a straight line. It also assumes your home's current assessed value is close to what you entered; if you've owned your home a long time, your actual assessed value may already be lower, which would make your real savings even smaller than shown here. Built from Census, Zillow, and Oklahoma county tax data. Read the full county-by-county analysis at genxpletives.substack.com."));
+    return /* @__PURE__ */ React.createElement("div", { className: "year-table-row", key: r.year }, /* @__PURE__ */ React.createElement("span", null, r.year), /* @__PURE__ */ React.createElement("span", null, fmt(r.taxOld)), /* @__PURE__ */ React.createElement("span", null, fmt(r.taxNew)), /* @__PURE__ */ React.createElement("span", { className: rowZero ? "savings zero" : "savings pos" }, fmt(rowDiff)));
+  }))), /* @__PURE__ */ React.createElement("div", { className: "chart-box" }, /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("span", { className: "legend-swatch", style: { background: "#9C3B2E" } }), "Current law"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("span", { className: "legend-swatch", style: { background: "#3E6B4A" } }), "SQ 847")), /* @__PURE__ */ React.createElement(LineChartSVG, { data: chartData }))), /* @__PURE__ */ React.createElement("div", { className: "caveat" }, "This is an estimate, not a tax bill or tax advice. It models the property you describe, assumes your effective tax rate (today's bill divided by today's value) stays constant, and projects a steady growth rate — real markets don't move in a straight line. It does not model changes in local tax rates (millage) or government revenue. Caps reset to full market value when property is sold or improved, so savings last only while you own the property unchanged. If you've owned your property a long time, your actual assessed value may already be lower than what you entered, which would make your real savings even smaller. Personal property (equipment, inventory, vehicles) and utility property valued by the State Board of Equalization are not covered by these caps and aren't modeled. Your county assessor can provide your actual values. Built from Census, Zillow, USDA, and Oklahoma county tax data. Read the full county-by-county analysis at genxpletives.substack.com."));
 }
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(React.createElement(SQ847Calculator));
 </script>
