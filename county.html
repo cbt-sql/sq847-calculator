@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQ 847: What It Means for Your County</title>
+<meta name="description" content="Pick your Oklahoma county and see what State Question 847 would mean for county property-tax revenue, schools and cities, and for homeowners and seniors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FAF7EF; --ink:#1C2B39; --ink-soft:#4A5A68; --rule:#D9D0BC;
+    --brick:#9C3B2E; --green:#3E6B4A; --gold:#B8892F; --cream:#F3ECDD;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#EFEADB; color:var(--ink); font-family:'Inter',system-ui,sans-serif; }
+  .wrap { max-width:640px; margin:0 auto; background:var(--paper); padding:28px 22px 36px; border:1px solid var(--rule); min-height:100vh; }
+  .eyebrow { display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:12.5px; letter-spacing:.02em; color:var(--ink-soft); }
+  .eyebrow .dot { width:7px; height:7px; border-radius:50%; background:var(--brick); flex-shrink:0; }
+  h1 { font-family:'Source Serif 4',Georgia,serif; font-weight:700; font-size:27px; line-height:1.22; margin:0 0 8px; }
+  h2 { font-family:'Source Serif 4',Georgia,serif; font-weight:700; font-size:19px; margin:0 0 6px; }
+  .sub { font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0 0 20px; max-width:58ch; }
+  label { display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:5px; }
+  select, input[type=search] { width:100%; font-family:'IBM Plex Mono',monospace; font-size:16px; padding:10px; border:1px solid var(--rule); background:#fff; color:var(--ink); border-radius:2px; }
+  select:focus, input:focus, button:focus-visible, summary:focus-visible { outline:2px solid var(--gold); outline-offset:1px; }
+  .seg { display:flex; gap:0; margin:14px 0 0; }
+  .seg button { flex:1; font:600 13px 'Inter',sans-serif; padding:9px 6px; background:#fff; color:var(--ink-soft); border:1px solid var(--rule); cursor:pointer; }
+  .seg button + button { border-left:none; }
+  .seg button[aria-pressed=true] { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .tear { border:none; border-top:1px dashed var(--rule); margin:22px 0 18px; }
+  .est-badge { display:inline-block; font-size:11px; font-weight:600; background:#FBF3E1; border:1px solid var(--gold); color:#7A5A16; padding:2px 7px; margin-left:6px; vertical-align:2px; }
+  .label { font-size:12.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .big { font-family:'Source Serif 4',Georgia,serif; font-weight:700; font-size:36px; line-height:1.08; color:var(--brick); margin-bottom:6px; }
+  .big.calm { color:var(--ink-soft); }
+  .caption { font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0 0 16px; }
+  .caption strong { color:var(--ink); }
+  .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0 16px; }
+  .stat { background:#fff; border:1px solid var(--rule); padding:11px 12px; }
+  .stat .k { font-size:11.5px; color:var(--ink-soft); line-height:1.35; margin-bottom:4px; }
+  .stat .v { font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:17px; }
+  .both-sides { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0 4px; }
+  .side { padding:12px; border:1px solid var(--rule); background:#fff; }
+  .side.pro { border-top:3px solid var(--green); }
+  .side.con { border-top:3px solid var(--brick); }
+  .side .k { font-size:11.5px; color:var(--ink-soft); line-height:1.35; margin-bottom:5px; }
+  .side .v { font-family:'Source Serif 4',serif; font-weight:700; font-size:22px; line-height:1.1; }
+  .side .n { font-size:12px; color:var(--ink-soft); margin-top:5px; line-height:1.4; }
+  .note { font-size:12.5px; color:var(--ink-soft); line-height:1.55; background:var(--cream); border-left:3px solid var(--gold); padding:10px 12px; margin:0 0 16px; }
+  details { border:1px solid var(--rule); background:#fff; margin:0 0 12px; }
+  summary { cursor:pointer; list-style:none; padding:11px 14px; font-size:13.5px; font-weight:600; display:flex; gap:8px; align-items:center; }
+  summary::-webkit-details-marker { display:none; }
+  summary::before { content:"▸"; color:var(--gold); font-size:11px; transition:transform .15s; }
+  details[open] > summary::before { transform:rotate(90deg); }
+  .dbody { padding:4px 16px 16px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-soft); line-height:1.6; }
+  .dbody p { margin:10px 0 0; } .dbody strong { color:var(--ink); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; font-size:11.5px; color:var(--ink-soft); padding:6px 8px; background:var(--cream); }
+  td { padding:7px 8px; border-top:1px solid var(--rule); font-family:'IBM Plex Mono',monospace; font-size:12.5px; }
+  td.t { font-family:'Inter',sans-serif; }
+  .tbl-scroll { max-height:340px; overflow-y:auto; border:1px solid var(--rule); background:#fff; margin-top:8px; }
+  .tbl-scroll th { position:sticky; top:0; }
+  tr.row { cursor:pointer; } tr.row:hover td { background:#FCFAF4; }
+  tr.sel td { background:#FBF3E1; font-weight:600; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin:4px 0 14px; }
+  .btn { font:600 13px 'Inter',sans-serif; padding:9px 13px; border:1px solid var(--ink); background:var(--ink); color:#fff; cursor:pointer; text-decoration:none; border-radius:2px; }
+  .btn.alt { background:#fff; color:var(--ink); }
+  .foot { font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:22px; padding-top:16px; border-top:1px solid var(--rule); }
+  .foot a { color:var(--brick); }
+  @media (max-width:440px) { .stat-grid, .both-sides { grid-template-columns:1fr; } .big { font-size:31px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span><span>SQ 847 · COUNTY LOOKUP</span></div>
+  <h1>What would SQ 847 mean for your county?</h1>
+  <p class="sub">State Question 847 lowers how fast the taxable value of property can grow. That means smaller tax bills for many homeowners, and less property-tax money for the county, schools and cities. Pick your county to see both sides.</p>
+
+  <label for="county">Your county</label>
+  <select id="county"></select>
+
+  <div class="seg" role="group" aria-label="How far ahead to look">
+    <button type="button" data-y="5" aria-pressed="false">In 5 years</button>
+    <button type="button" data-y="10" aria-pressed="true">In 10 years</button>
+    <button type="button" data-y="15" aria-pressed="false">In 15 years</button>
+  </div>
+
+  <hr class="tear">
+
+  <div id="result" aria-live="polite"></div>
+
+  <div class="actions">
+    <button class="btn" id="copy" type="button">Copy link to this county</button>
+    <a class="btn alt" href="index.html">Check your own home →</a>
+  </div>
+
+  <details>
+    <summary>Seniors 65+: what the freeze would look like in this county</summary>
+    <div class="dbody" id="seniors"></div>
+  </details>
+
+  <details>
+    <summary>How this is figured, and what it leaves out</summary>
+    <div class="dbody">
+      <p><strong>The basic idea.</strong> Oklahoma limits how fast a property's taxable value can rise each year. SQ 847 would lower those limits starting in tax year 2027: homesteads from 3% to 1.75%, and other real property from 5% to 4%. The limit only matters where values are rising faster than it. Where home prices are flat or falling, nothing changes.</p>
+      <p><strong>Why a range?</strong> Counties don't publish how much of their taxable real property is homes versus businesses, farms and other land, and the two have different limits. So the low and high numbers show what happens if all of the county's real property is treated one way or the other. The real answer is somewhere between.</p>
+      <p><strong>What counts.</strong> Only the county general fund's share of property tax, with tax rates held where they are today. Personal property and utility property aren't capped, so they're unchanged. Schools, cities and vo-techs are funded from the same property, so their percentage hit is about the same as the "taxable value" figure shown, but their budgets aren't in these dollar amounts.</p>
+      <p><strong>What it leaves out.</strong> New construction, sales that reset values, and any change to tax rates local governments might make in response. It uses each county's recent home-price trend (Zillow, July 2026) for all real property, and assumes taxable values start out at market value. If values already lag the market, the real effect would be larger.</p>
+      <p><strong>Data.</strong> County general fund property-tax revenue for FY 2024-25 from the OSU County Government Training Program's county abstract (built from county budgets and Oklahoma Tax Commission data); property-class shares from the same source; median incomes from HUD's FY2026 income limits; home values and trends from Zillow. Wagoner and Oklahoma County are marked "approximate" because the published valuation rows for those two couldn't be verified, so their valuations are estimated from their tax collections.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Compare all 77 counties</summary>
+    <div class="dbody">
+      <label for="find" style="margin-top:8px">Find a county</label>
+      <input type="search" id="find" placeholder="Start typing a county name">
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>County</th><th>Share of county property tax lost</th><th>Per year</th></tr></thead>
+        <tbody id="all"></tbody>
+      </table></div>
+      <p style="margin-top:8px">Sorted by the middle of each county's range. Tap a row to see that county.</p>
+    </div>
+  </details>
+
+  <div class="foot">
+    This is an estimate to help voters understand the tradeoffs, not a forecast or a tax bill. Read the ballot text on the Oklahoma Secretary of State's website. Full analysis at <a href="https://genxpletives.substack.com" rel="noopener">GenXpletives</a>.
+  </div>
+</div>
+
+<script>
+const DATA = [{"n":"Adair","a":1322613,"s":0.723296,"g":0.08558,"v":180057,"r":0.00198,"m":61500,"area":"Adair County, OK","est":false},{"n":"Alfalfa","a":1357592,"s":0.398878,"g":-0.05512,"v":86913,"r":0.00327,"m":93500,"area":"Alfalfa County, OK","est":false},{"n":"Atoka","a":1338047,"s":0.569629,"g":0.071,"v":218418,"r":0.00169,"m":73600,"area":"Atoka County, OK","est":false},{"n":"Beaver","a":1771214,"s":0.274145,"g":0.01618,"v":136684,"r":0.00341,"m":76900,"area":"Beaver County, OK","est":false},{"n":"Beckham","a":2877689,"s":0.568079,"g":0.05506,"v":156779,"r":0.00289,"m":70800,"area":"Beckham County, OK","est":false},{"n":"Blaine","a":2701888,"s":0.232727,"g":0.02436,"v":105199,"r":0.00346,"m":79900,"area":"Blaine County, OK","est":false},{"n":"Bryan","a":5128369,"s":0.681248,"g":0.04037,"v":228608,"r":0.00241,"m":73800,"area":"Bryan County, OK","est":false},{"n":"Caddo","a":2849355,"s":0.357226,"g":0.00425,"v":103102,"r":0.00321,"m":71800,"area":"Caddo County, OK","est":false},{"n":"Canadian","a":24099901,"s":0.780475,"g":0.04797,"v":273977,"r":0.0092,"m":97300,"area":"Oklahoma City, OK HUD Metro FMR Area","est":false},{"n":"Carter","a":7087617,"s":0.591295,"g":0.05118,"v":178422,"r":0.00334,"m":80400,"area":"Carter County, OK","est":false},{"n":"Cherokee","a":2905528,"s":0.864365,"g":0.05735,"v":213946,"r":0.00236,"m":71300,"area":"Cherokee County, OK","est":false},{"n":"Choctaw","a":952416,"s":0.644882,"g":0.05596,"v":142551,"r":0.00208,"m":65200,"area":"Choctaw County, OK","est":false},{"n":"Cimarron","a":702809,"s":0.363948,"g":-0.00311,"v":79562,"r":0.00307,"m":99100,"area":"Cimarron County, OK","est":false},{"n":"Cleveland","a":31187111,"s":0.900037,"g":0.04758,"v":255911,"r":0.0095,"m":97300,"area":"Oklahoma City, OK HUD Metro FMR Area","est":false},{"n":"Coal","a":1942582,"s":0.16812,"g":0.0552,"v":125988,"r":0.00248,"m":63200,"area":"Coal County, OK","est":false},{"n":"Comanche","a":8739098,"s":0.755801,"g":0.04964,"v":158381,"r":0.0081,"m":79600,"area":"Lawton, OK HUD Metro FMR Area","est":false},{"n":"Cotton","a":463193,"s":0.747095,"g":0.03946,"v":102455,"r":0.00411,"m":84500,"area":"Cotton County, OK HUD Metro FMR Area","est":false},{"n":"Craig","a":1188759,"s":0.685689,"g":0.06557,"v":197535,"r":0.0024,"m":65600,"area":"Craig County, OK","est":false},{"n":"Creek","a":7451473,"s":0.698183,"g":0.04119,"v":219715,"r":0.0067,"m":95000,"area":"Tulsa, OK HUD Metro FMR Area","est":false},{"n":"Custer","a":4183988,"s":0.455364,"g":0.05966,"v":177938,"r":0.0035,"m":81400,"area":"Custer County, OK","est":false},{"n":"Delaware","a":6156587,"s":0.897258,"g":0.05075,"v":289274,"r":0.00197,"m":75200,"area":"Delaware County, OK","est":false},{"n":"Dewey","a":2262677,"s":0.178045,"g":0.01634,"v":136603,"r":0.00244,"m":78000,"area":"Dewey County, OK","est":false},{"n":"Ellis","a":1458967,"s":0.229147,"g":0.00115,"v":100592,"r":0.00346,"m":78100,"area":"Ellis County, OK","est":false},{"n":"Garfield","a":8134531,"s":0.605134,"g":0.03955,"v":142534,"r":0.00442,"m":87000,"area":"Enid, OK MSA","est":false},{"n":"Garvin","a":3759803,"s":0.400177,"g":0.06086,"v":150842,"r":0.00263,"m":75600,"area":"Garvin County, OK","est":false},{"n":"Grady","a":9289312,"s":0.495168,"g":0.06101,"v":248056,"r":0.00266,"m":96000,"area":"Grady County, OK HUD Metro FMR Area","est":false},{"n":"Grant","a":2118410,"s":0.2612,"g":0.011,"v":115103,"r":0.00273,"m":78400,"area":"Grant County, OK","est":false},{"n":"Greer","a":338336,"s":0.749487,"g":0.01482,"v":77133,"r":0.00381,"m":73400,"area":"Greer County, OK","est":false},{"n":"Harmon","a":254818,"s":0.675444,"g":-0.07121,"v":62543,"r":0.00457,"m":55300,"area":"Harmon County, OK","est":false},{"n":"Harper","a":717966,"s":0.364533,"g":0.02807,"v":77905,"r":0.00371,"m":78200,"area":"Harper County, OK","est":false},{"n":"Haskell","a":806370,"s":0.636104,"g":0.03836,"v":157835,"r":0.00216,"m":65600,"area":"Haskell County, OK","est":false},{"n":"Hughes","a":1955883,"s":0.271812,"g":0.03949,"v":114526,"r":0.00304,"m":66500,"area":"Hughes County, OK","est":false},{"n":"Jackson","a":1843786,"s":0.767573,"g":0.02902,"v":116195,"r":0.0047,"m":85200,"area":"Jackson County, OK","est":false},{"n":"Jefferson","a":591828,"s":0.546768,"g":0.05832,"v":96587,"r":0.00336,"m":61700,"area":"Jefferson County, OK","est":false},{"n":"Johnston","a":1710937,"s":0.378367,"g":0.09547,"v":166021,"r":0.00206,"m":68700,"area":"Johnston County, OK","est":false},{"n":"Kay","a":6469436,"s":0.374339,"g":0.03389,"v":117379,"r":0.0045,"m":77500,"area":"Kay County, OK","est":false},{"n":"Kingfisher","a":5230135,"s":0.282595,"g":0.02905,"v":233170,"r":0.00223,"m":82100,"area":"Kingfisher County, OK","est":false},{"n":"Kiowa","a":1029019,"s":0.475566,"g":0.0362,"v":74950,"r":0.0038,"m":61800,"area":"Kiowa County, OK","est":false},{"n":"Latimer","a":802324,"s":0.515882,"g":0.00874,"v":149209,"r":0.00178,"m":63200,"area":"Latimer County, OK","est":false},{"n":"Le Flore","a":3506070,"s":0.661832,"g":0.05243,"v":170498,"r":0.00248,"m":69300,"area":"Le Flore County, OK","est":false},{"n":"Lincoln","a":5732648,"s":0.32256,"g":0.05262,"v":189904,"r":0.00252,"m":77500,"area":"Lincoln County, OK HUD Metro FMR Area","est":false},{"n":"Logan","a":5878594,"s":0.774125,"g":0.03196,"v":317574,"r":0.00288,"m":97300,"area":"Oklahoma City, OK HUD Metro FMR Area","est":false},{"n":"Love","a":1430656,"s":0.756138,"g":0.04247,"v":201758,"r":0.0024,"m":78800,"area":"Love County, OK","est":false},{"n":"Major","a":1913941,"s":0.329906,"g":0.05069,"v":168220,"r":0.00313,"m":87300,"area":"Major County, OK","est":false},{"n":"Marshall","a":2114257,"s":0.77103,"g":0.04167,"v":209180,"r":0.00208,"m":68600,"area":"Marshall County, OK","est":false},{"n":"Mayes","a":10287832,"s":0.490834,"g":0.04654,"v":220980,"r":0.00254,"m":76200,"area":"Mayes County, OK","est":false},{"n":"McClain","a":5444574,"s":0.80991,"g":0.04146,"v":286779,"r":0.00266,"m":97300,"area":"Oklahoma City, OK HUD Metro FMR Area","est":false},{"n":"McCurtain","a":4307118,"s":0.722107,"g":0.01118,"v":198188,"r":0.0015,"m":70600,"area":"McCurtain County, OK","est":false},{"n":"McIntosh","a":1870081,"s":0.821761,"g":0.05597,"v":196601,"r":0.00198,"m":62000,"area":"McIntosh County, OK","est":false},{"n":"Murray","a":1723514,"s":0.445573,"g":0.04421,"v":171687,"r":0.00197,"m":84800,"area":"Murray County, OK","est":false},{"n":"Muskogee","a":6182928,"s":0.553625,"g":0.05098,"v":159230,"r":0.0067,"m":74100,"area":"Muskogee County, OK","est":false},{"n":"Noble","a":2499354,"s":0.208936,"g":0.05273,"v":161290,"r":0.00302,"m":95300,"area":"Noble County, OK","est":false},{"n":"Nowata","a":885792,"s":0.643757,"g":0.05827,"v":178245,"r":0.00264,"m":70900,"area":"Nowata County, OK","est":false},{"n":"Okfuskee","a":967325,"s":0.482293,"g":0.07201,"v":149055,"r":0.00252,"m":65900,"area":"Okfuskee County, OK","est":false},{"n":"Oklahoma","a":98915652,"s":0.703557,"g":0.04066,"v":224768,"r":0.0094,"m":97300,"area":"Oklahoma City, OK HUD Metro FMR Area","est":true},{"n":"Okmulgee","a":2542811,"s":0.637503,"g":0.04171,"v":130622,"r":0.00333,"m":72600,"area":"Okmulgee County, OK HUD Metro FMR Area","est":false},{"n":"Osage","a":5380100,"s":0.644479,"g":0.04057,"v":218571,"r":0.00265,"m":95000,"area":"Tulsa, OK HUD Metro FMR Area","est":false},{"n":"Ottawa","a":2136428,"s":0.694109,"g":0.04998,"v":142332,"r":0.00247,"m":64800,"area":"Ottawa County, OK","est":false},{"n":"Pawnee","a":1221838,"s":0.68402,"g":0.05956,"v":179778,"r":0.00286,"m":76400,"area":"Pawnee County, OK HUD Metro FMR Area","est":false},{"n":"Payne","a":11848089,"s":0.618865,"g":0.04882,"v":245289,"r":0.0075,"m":98800,"area":"Payne County, OK","est":false},{"n":"Pittsburg","a":4961052,"s":0.55621,"g":0.04729,"v":150141,"r":0.00291,"m":74600,"area":"Pittsburg County, OK","est":false},{"n":"Pontotoc","a":3846129,"s":0.663115,"g":0.04961,"v":191113,"r":0.00255,"m":84200,"area":"Pontotoc County, OK","est":false},{"n":"Pottawatomie","a":5208869,"s":0.763672,"g":0.06012,"v":193752,"r":0.0064,"m":82200,"area":"Pottawatomie County, OK","est":false},{"n":"Pushmataha","a":929104,"s":0.605499,"g":0.04719,"v":161300,"r":0.00169,"m":64900,"area":"Pushmataha County, OK","est":false},{"n":"Roger Mills","a":1288927,"s":0.22156,"g":0.03431,"v":191513,"r":0.00274,"m":79000,"area":"Roger Mills County, OK","est":false},{"n":"Rogers","a":12254864,"s":0.716667,"g":0.04819,"v":285221,"r":0.0071,"m":95000,"area":"Tulsa, OK HUD Metro FMR Area","est":false},{"n":"Seminole","a":2096916,"s":0.456373,"g":0.06117,"v":125179,"r":0.00305,"m":62100,"area":"Seminole County, OK","est":false},{"n":"Sequoyah","a":2539882,"s":0.783786,"g":0.061,"v":191608,"r":0.00192,"m":76800,"area":"Fort Smith, AR-OK MSA","est":false},{"n":"Stephens","a":4510849,"s":0.570864,"g":0.0644,"v":144226,"r":0.00336,"m":81500,"area":"Stephens County, OK","est":false},{"n":"Texas","a":3212281,"s":0.484425,"g":0.04631,"v":172130,"r":0.0026,"m":84600,"area":"Texas County, OK","est":false},{"n":"Tillman","a":592682,"s":0.614134,"g":0.01608,"v":57359,"r":0.00556,"m":67200,"area":"Tillman County, OK","est":false},{"n":"Tulsa","a":80114107,"s":0.822838,"g":0.05414,"v":253998,"r":0.009,"m":95000,"area":"Tulsa, OK HUD Metro FMR Area","est":false},{"n":"Wagoner","a":8985131,"s":0.703557,"g":0.04951,"v":285973,"r":0.0074,"m":95000,"area":"Tulsa, OK HUD Metro FMR Area","est":true},{"n":"Washington","a":4760883,"s":0.804455,"g":0.06058,"v":187415,"r":0.00379,"m":84500,"area":"Washington County, OK","est":false},{"n":"Washita","a":1828131,"s":0.309867,"g":0.04484,"v":105433,"r":0.00311,"m":77900,"area":"Washita County, OK","est":false},{"n":"Woods","a":2785782,"s":0.314408,"g":0.02515,"v":119646,"r":0.00353,"m":88500,"area":"Woods County, OK","est":false},{"n":"Woodward","a":3439187,"s":0.389912,"g":0.01997,"v":135004,"r":0.00399,"m":76000,"area":"Woodward County, OK","est":false}];
+const CAP = { homeOld:0.03, homeNew:0.0175, otherOld:0.05, otherNew:0.04 };
+const TIERS = [[1.0,"0%","Full freeze (same as today)"],[1.2,"0.35%",""],[1.4,"0.70%",""],[1.6,"1.05%",""],[1.8,"1.40%",""],[Infinity,"1.75%",""]];
+
+const mult = (g,cap,n) => Math.pow(1+Math.min(g,cap), n);
+function calc(c, n) {
+  const f = (cap) => mult(c.g, cap, n);
+  const lossH = c.a * c.s * (f(CAP.homeOld) - f(CAP.homeNew));
+  const lossO = c.a * c.s * (f(CAP.otherOld) - f(CAP.otherNew));
+  const tv = (co,cn) => c.s * (f(co)-f(cn)) / (c.s*f(co) + 1 - c.s);
+  const tvH = tv(CAP.homeOld, CAP.homeNew), tvO = tv(CAP.otherOld, CAP.otherNew);
+  const cum = (cap) => { let t=0; for (let i=1;i<=n;i++) t += Math.pow(1+Math.min(c.g,cap), i); return t; };
+  const cH = c.a*c.s*(cum(CAP.homeOld)-cum(CAP.homeNew)), cO = c.a*c.s*(cum(CAP.otherOld)-cum(CAP.otherNew));
+  const own = (cap) => Math.min(c.v*Math.pow(1+c.g,n), c.v*Math.pow(1+cap,n));
+  const home = (own(CAP.homeOld) - own(CAP.homeNew)) * c.r;
+  return {
+    low:Math.min(lossH,lossO), high:Math.max(lossH,lossO),
+    pLow:Math.min(lossH,lossO)/c.a, pHigh:Math.max(lossH,lossO)/c.a,
+    tvLow:Math.min(tvH,tvO), tvHigh:Math.max(tvH,tvO),
+    cumLow:Math.min(cH,cO), cumHigh:Math.max(cH,cO),
+    home
+  };
+}
+const usd = (x) => "$" + Math.round(x).toLocaleString("en-US");
+const money = (x) => x >= 1e6 ? "$" + (x/1e6).toFixed(x>=1e7?0:1) + " million" : x >= 1e3 ? usd(Math.round(x/1e3)*1e3) : usd(x);
+const pct = (x) => (x*100 < 10 ? (x*100).toFixed(1) : Math.round(x*100)) + "%";
+const range = (lo,hi,f) => (f(lo) === f(hi)) ? f(lo) : f(lo) + " to " + f(hi);
+
+let years = 10, current = null;
+const el = (id) => document.getElementById(id);
+const byName = Object.fromEntries(DATA.map(d => [d.n, d]));
+
+function render() {
+  const c = current, r = calc(c, years);
+  const nothing = r.high < 1000 && r.tvHigh < 0.0005;
+  const mid = (r.pLow + r.pHigh)/2;
+  const ranked = DATA.map(d => { const x = calc(d, years); return [d.n, (x.pLow+x.pHigh)/2]; }).sort((a,b)=>b[1]-a[1]);
+  const rank = ranked.findIndex(x => x[0] === c.n) + 1;
+  const homeZero = r.home < 1;
+  const badge = c.est ? '<span class="est-badge">approximate</span>' : "";
+  const trend = (c.g*100).toFixed(1);
+
+  let head, cap;
+  if (nothing) {
+    head = '<div class="big calm">About the same</div>';
+    cap = `<p class="caption"><strong>${c.n} County</strong> home values have been moving about ${trend}% a year, which isn't fast enough for the lower limits to change much. SQ 847 would barely touch ${c.n} County's property-tax collections.</p>`;
+  } else {
+    head = `<div class="big">${range(r.low, r.high, money)} less a year</div>`;
+    cap = `<p class="caption">If ${c.n} County's home values keep rising about <strong>${trend}% a year</strong>, then by year ${years} the county general fund would collect <strong>${range(r.low,r.high,money)}</strong> less each year than under today's rules. That's about <strong>${range(r.pLow,r.pHigh,pct)}</strong> of the county's property-tax revenue. Over all ${years} years it adds up to roughly <strong>${range(r.cumLow,r.cumHigh,money)}</strong>.</p>`;
+  }
+
+  const homeText = homeZero
+    ? `<div class="v" style="color:var(--ink-soft)">About $0</div><div class="n">${c.n} County's home prices aren't rising fast enough to hit the old limit.</div>`
+    : `<div class="v" style="color:var(--green)">${usd(r.home)} a year</div><div class="n">lower property tax by year ${years} on a typical ${usd(c.v)} home.</div>`;
+  const loseText = nothing
+    ? `<div class="v" style="color:var(--ink-soft)">About $0</div><div class="n">little change to county collections.</div>`
+    : `<div class="v" style="color:var(--brick)">${range(r.pLow,r.pHigh,pct)} less</div><div class="n">county property-tax revenue by year ${years}. About the same percentage cut to taxable value for schools, cities and vo-techs: ${range(r.tvLow,r.tvHigh,pct)}.</div>`;
+
+  el("result").innerHTML =
+    `<div class="label">${c.n} County, year ${years} ${badge}</div>` + head + cap +
+    `<div class="both-sides">
+       <div class="side pro"><div class="k">A typical homeowner saves</div>${homeText}</div>
+       <div class="side con"><div class="k">The county and local governments lose</div>${loseText}</div>
+     </div>` +
+    (nothing ? "" : `<p class="note" style="margin-top:12px">Ranks <strong>#${rank} of 77</strong> counties for the share of county property-tax revenue given up by year ${years} (1 is the biggest hit).</p>`) +
+    (c.est ? `<p class="note">The published valuation numbers for ${c.n} County couldn't be verified, so this county's figures are approximate.</p>` : "");
+
+  // seniors
+  const m = c.m;
+  let rows = "", lo = 0;
+  TIERS.forEach(([up,capTxt,extra], i) => {
+    const band = up === Infinity ? "Over " + usd(lo) : (i === 0 ? "Up to " + usd(up*m) : usd(lo) + " to " + usd(up*m));
+    rows += `<tr><td class="t">${band}</td><td>${capTxt} a year${extra ? "" : ""}</td></tr>`;
+    lo = up*m;
+  });
+  el("seniors").innerHTML =
+    `<p>Under SQ 847, homeowners 65 and older would have their taxable-value growth limited based on household income compared with HUD's median family income for the area (${m.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0})} for ${c.n} County).</p>
+     <div class="tbl-scroll" style="max-height:none"><table><thead><tr><th>Household income</th><th>Yearly limit on taxable-value growth</th></tr></thead><tbody>${rows}</tbody></table></div>
+     <p>Today, seniors with incomes above the program's limit get no freeze. SQ 847 removes that limit and replaces it with this sliding scale; seniors at or below the median keep the full freeze. The more income, the faster taxable value can grow. For a dollar estimate on your own home, use the <a href="index.html" style="color:var(--brick)">homeowner calculator</a>.</p>`;
+
+  // seg + table
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.y) === years)));
+  const q = el("find").value.trim().toLowerCase();
+  el("all").innerHTML = ranked.filter(x => x[0].toLowerCase().includes(q)).map(([n,mid]) => {
+    const d = byName[n], x = calc(d, years);
+    const sel = n === c.n ? " sel" : "";
+    const share = x.high < 1000 ? "about 0%" : range(x.pLow, x.pHigh, pct);
+    const per = x.high < 1000 ? "$0" : range(x.low, x.high, money);
+    return `<tr class="row${sel}" data-n="${n}" tabindex="0"><td class="t">${n}</td><td>${share}</td><td>${per}</td></tr>`;
+  }).join("");
+}
+
+function select(name, push) {
+  if (!byName[name]) name = "Oklahoma";
+  current = byName[name];
+  el("county").value = name;
+  if (push) history.replaceState(null, "", "#" + encodeURIComponent(name));
+  render();
+}
+
+el("county").innerHTML = DATA.map(d => `<option value="${d.n}">${d.n} County</option>`).join("");
+el("county").addEventListener("change", e => select(e.target.value, true));
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { years = Number(b.dataset.y); render(); }));
+el("find").addEventListener("input", render);
+el("all").addEventListener("click", e => { const tr = e.target.closest("tr.row"); if (tr) { select(tr.dataset.n, true); window.scrollTo({top:0,behavior:"smooth"}); } });
+el("all").addEventListener("keydown", e => { if (e.key === "Enter") { const tr = e.target.closest("tr.row"); if (tr) select(tr.dataset.n, true); } });
+el("copy").addEventListener("click", () => {
+  const url = location.href.split("#")[0] + "#" + encodeURIComponent(current.n);
+  const done = () => { el("copy").textContent = "Link copied"; setTimeout(() => el("copy").textContent = "Copy link to this county", 1800); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, done); else done();
+});
+select(decodeURIComponent((location.hash || "").slice(1)) || "Oklahoma", false);
+</script>
+</body>
+</html>
